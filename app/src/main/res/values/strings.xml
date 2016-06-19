@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OneTocuh</string>
+    <string name="action_settings">设置</string>
+    <string name="hello_world">悬浮</string>
+	<string name="rt">返回</string>
+    <string name="sendsms">短信</string>
+    <string name="callphone">电话</string>
+    <string name="appone">应用</string>
+    <string name="mu">音乐</string>
+    <string name="topIcon">上</string>
+    <string name="bottomIcon">下</string>
+    <string name="leftIcon">左</string>
+    <string name="rightIcon">右</string>
+</resources>

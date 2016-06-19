@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/small_window_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+    <RelativeLayout
+        android:id="@+id/start_btn"
+        android:layout_width="60dip"
+        android:layout_height="60dip"
+        android:background="@drawable/bg_float"
+        >
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/menu_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        >
+        <Button
+            android:layout_marginTop="@dimen/bigheight"
+            android:layout_marginLeft="@dimen/bigwidth"
+            android:id="@+id/fanhui"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/bigtextsize"
+            android:background="@xml/shape"
+            android:text="@string/rt"
+            />
+        <Button
+            android:id="@+id/topBtn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignLeft="@+id/fanhui"
+            android:background="@xml/shape"
+            android:textSize="@dimen/bigtextsize"
+            android:text="@string/topIcon" />
+        <Button
+            android:id="@+id/bottomBtn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_below="@+id/fanhui"
+            android:layout_alignLeft="@+id/fanhui"
+            android:background="@xml/shape"
+            android:textSize="@dimen/bigtextsize"
+            android:text="@string/bottomIcon" />
+        <Button
+            android:id="@+id/leftBtn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignTop="@+id/fanhui"
+            android:background="@xml/shape"
+            android:textSize="@dimen/bigtextsize"
+            android:text="@string/leftIcon" />
+        <Button
+            android:id="@+id/rightBtn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignTop="@+id/fanhui"
+            android:layout_toRightOf="@+id/fanhui"
+            android:background="@xml/shape"
+            android:textSize="@dimen/bigtextsize"
+            android:text="@string/rightIcon" />
+    </RelativeLayout>
+
+</RelativeLayout>
