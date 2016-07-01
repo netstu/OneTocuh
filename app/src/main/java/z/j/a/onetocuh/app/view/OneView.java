@@ -37,7 +37,7 @@ public class OneView extends FloatWindowView {
 
     public OneView(Context context) {
         super(context);
-        Toast.makeText(context, "创建第一个悬浮窗"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "创建第一个悬浮窗"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
         Float h = context.getResources().getDimension(R.dimen.start_height);
         Float w = context.getResources().getDimension(R.dimen.start_width);
         setFloatWindowHeight(h.intValue());
@@ -95,7 +95,7 @@ public class OneView extends FloatWindowView {
                 //如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen == yInScreen则视为触发
                 if (Math.abs(xDownInScreen - xInScreen) < toleranceNumerical && Math.abs(yDownInScreen - yInScreen) < toleranceNumerical) {
                     Context context = getContext();
-                    Toast.makeText(context, "展开按钮组"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, "展开按钮组"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
                     FloatWindowManager.createFloatWindow(context,TwoView.class);
                 }
                 break;

@@ -37,7 +37,7 @@ public class TwoView extends FloatWindowView {
 
     public TwoView(Context context) {
         super(context);
-        Toast.makeText(context, "创建第二个悬浮窗" + System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, "创建第二个悬浮窗" + System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
         Float h = context.getResources().getDimension(R.dimen.start_height) * 3;
         Float w = context.getResources().getDimension(R.dimen.start_width) * 3;
         setFloatWindowHeight(h.intValue());
@@ -55,7 +55,7 @@ public class TwoView extends FloatWindowView {
             @Override
             public void onClick(View view) {
                 Context context = getContext();
-                Toast.makeText(context, "展开按钮组2" + System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "展开按钮组2" + System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
                 FloatWindowManager.createFloatWindow(context, OneView.class);
             }
         });
