@@ -8,7 +8,7 @@
     <dimen name="bigtextsize">13sp</dimen>
     <dimen name="musicsize">13sp</dimen>
 
-    <dimen name="start_width">50dip</dimen>
-    <dimen name="start_height">50dip</dimen>
+    <dimen name="start_width">50dp</dimen>
+    <dimen name="start_height">50dp</dimen>
 
 </resources>
