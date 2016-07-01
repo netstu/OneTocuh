@@ -21,6 +21,11 @@ public class WindowService extends Service {
     private Handler handler = new Handler();
     //定时器，定时进行检测当前应该创建还是移除悬浮
     private Timer timer;
+
+    private Class cls;
+
+    private String model;
+
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -41,6 +46,13 @@ public class WindowService extends Service {
             timer = new Timer();
             timer.scheduleAtFixedRate(new RefreshTask(),0,500);
         }
+        model = intent.getExtras().getString("model");
+        try {
+            cls = Class.forName(intent.getExtras().getString("cls"));
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        //MyWindowManager.createFloatWindow(getApplicationContext(),cls);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -56,24 +68,18 @@ public class WindowService extends Service {
 
         @Override
         public void run() {
-            //判断当前界面是桌面，且没有悬浮显示，则创建悬浮窗
-            if (isHome() && !MyWindowManager.isWindowShowing()){
+            //判断当前界面是桌面，且没有悬浮显示，则创建悬浮窗 if (isHome() && !MyWindowManager.isWindowShowing()){
+            if (!MyWindowManager.isWindowShowing()){
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        MyWindowManager.createSmallWindow(getApplicationContext());
+                        if("1".equals(model)){
+                            MyWindowManager.createSmallWindow(getApplicationContext());
+                        }else if("2".equals(model)){
+                            MyWindowManager.createFloatWindow(getApplicationContext(),cls);
+                        }
                     }
                 });
-            }
-            //当前界面不是桌面，且有悬浮窗口显示，则移除悬浮窗口
-            else if (!isHome() && MyWindowManager.isWindowShowing()){
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        MyWindowManager.removeSmallWindow(getApplicationContext());
-                        MyWindowManager.removeBigWindow(getApplicationContext());
-                    }
-                }) ;
             }
         }
     }

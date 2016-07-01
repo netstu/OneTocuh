@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/floatWindow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+
+    <Button
+        android:id="@+id/ontStartBtn"
+        android:layout_width="@dimen/start_width"
+        android:layout_height="@dimen/start_height"
+        android:background="@drawable/bg_float"
+        />
+
+</RelativeLayout>

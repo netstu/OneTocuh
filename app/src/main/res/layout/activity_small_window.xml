@@ -6,65 +6,68 @@
     android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
 
     <RelativeLayout
-        android:id="@+id/start_btn"
-        android:layout_width="60dip"
-        android:layout_height="60dip"
-        android:background="@drawable/bg_float"
-        >
-    </RelativeLayout>
-
-
-    <RelativeLayout
         android:id="@+id/menu_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
-        >
-        <Button
-            android:layout_marginTop="@dimen/bigheight"
-            android:layout_marginLeft="@dimen/bigwidth"
-            android:id="@+id/fanhui"
+        android:visibility="visible">
+
+        <RelativeLayout
+            android:id="@+id/client_btn"
             android:layout_width="@dimen/bigwidth"
             android:layout_height="@dimen/bigheight"
+            android:layout_below="@+id/top_btn"
+            android:layout_toRightOf="@+id/left_btn"
+            android:background="@drawable/bg_float"
+            android:text="@string/start"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/bigtextsize" />
+
+        <RelativeLayout
+            android:id="@+id/left_btn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignTop="@+id/client_btn"
+            android:background="@xml/shape"
+            android:text="@string/leftIcon"
             android:textColor="#ffffff"
             android:textSize="@dimen/bigtextsize"
-            android:background="@xml/shape"
-            android:text="@string/rt"
-            />
-        <Button
-            android:id="@+id/topBtn"
-            android:layout_width="@dimen/bigwidth"
-            android:layout_height="@dimen/bigheight"
-            android:layout_alignLeft="@+id/fanhui"
-            android:background="@xml/shape"
-            android:textSize="@dimen/bigtextsize"
-            android:text="@string/topIcon" />
-        <Button
-            android:id="@+id/bottomBtn"
-            android:layout_width="@dimen/bigwidth"
-            android:layout_height="@dimen/bigheight"
-            android:layout_below="@+id/fanhui"
-            android:layout_alignLeft="@+id/fanhui"
-            android:background="@xml/shape"
-            android:textSize="@dimen/bigtextsize"
-            android:text="@string/bottomIcon" />
-        <Button
-            android:id="@+id/leftBtn"
-            android:layout_width="@dimen/bigwidth"
-            android:layout_height="@dimen/bigheight"
-            android:layout_alignTop="@+id/fanhui"
-            android:background="@xml/shape"
-            android:textSize="@dimen/bigtextsize"
-            android:text="@string/leftIcon" />
-        <Button
-            android:id="@+id/rightBtn"
-            android:layout_width="@dimen/bigwidth"
-            android:layout_height="@dimen/bigheight"
-            android:layout_alignTop="@+id/fanhui"
-            android:layout_toRightOf="@+id/fanhui"
-            android:background="@xml/shape"
-            android:textSize="@dimen/bigtextsize"
-            android:text="@string/rightIcon" />
-    </RelativeLayout>
+            android:visibility="gone" />
 
+        <RelativeLayout
+            android:id="@+id/top_btn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignLeft="@+id/client_btn"
+            android:background="@xml/shape"
+            android:text="@string/topIcon"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/bigtextsize"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/right_btn"
+
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignTop="@+id/client_btn"
+            android:layout_toRightOf="@+id/client_btn"
+            android:background="@xml/shape"
+            android:text="@string/rightIcon"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/bigtextsize"
+            android:visibility="gone" />
+
+        <RelativeLayout
+            android:id="@+id/bottom_btn"
+            android:layout_width="@dimen/bigwidth"
+            android:layout_height="@dimen/bigheight"
+            android:layout_alignLeft="@+id/top_btn"
+            android:layout_below="@id/client_btn"
+            android:background="@xml/shape"
+            android:text="@string/bottomIcon"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/bigtextsize"
+            android:visibility="gone" />
+
+    </RelativeLayout>
 </RelativeLayout>

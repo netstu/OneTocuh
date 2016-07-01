@@ -3,7 +3,9 @@
     <string name="app_name">OneTocuh</string>
     <string name="action_settings">设置</string>
     <string name="hello_world">悬浮</string>
-	<string name="rt">返回</string>
+    <string name="load_start_icon">启动悬浮按钮1号</string>
+    <string name="start">主页</string>
+    <string name="rt">返回</string>
     <string name="sendsms">短信</string>
     <string name="callphone">电话</string>
     <string name="appone">应用</string>
@@ -12,4 +14,5 @@
     <string name="bottomIcon">下</string>
     <string name="leftIcon">左</string>
     <string name="rightIcon">右</string>
+    <integer name="windowTwo">2</integer>
 </resources>
