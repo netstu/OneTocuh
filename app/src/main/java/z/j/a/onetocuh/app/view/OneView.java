@@ -37,6 +37,7 @@ public class OneView extends FloatWindowView {
 
     public OneView(Context context) {
         super(context);
+        Toast.makeText(context, "创建第一个悬浮窗"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.view_one, this);
         floatWin = (RelativeLayout) findViewById(R.id.floatWindow);
