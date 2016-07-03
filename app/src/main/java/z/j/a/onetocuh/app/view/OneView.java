@@ -1,12 +1,11 @@
 package z.j.a.onetocuh.app.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import z.j.a.onetocuh.app.FloatWindowView;
 import z.j.a.onetocuh.app.LocalUtil;
 
 public class OneView extends FloatWindowView {
-    private WindowManager windowManager;//更新小悬浮的位置
     private Button ontStartBtn;
 
     private int statusBarHeight;//状态栏高度
@@ -35,6 +33,8 @@ public class OneView extends FloatWindowView {
     private float xInView;//记录手指按下时在小悬浮窗的View上的横坐标的值
     private float yInView;//记录手指按下时在小悬浮窗的View上的纵坐标的值
 
+    private Intent mIntent;
+
     public OneView(Context context) {
         super(context);
 //        Toast.makeText(context, "创建第一个悬浮窗"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
@@ -42,6 +42,9 @@ public class OneView extends FloatWindowView {
         Float w = context.getResources().getDimension(R.dimen.start_width);
         setFloatWindowHeight(h.intValue());
         setFloatWindowWidth(w.intValue());
+
+        //保存初始按钮的宽高
+        LocalUtil.setViewSize(OneView.class.getName(),new Integer[]{w.intValue(),h.intValue()});
 
         if(LocalUtil.getLocal()==null){
             setFloatWindowX(getScreenWidth()-getFloatWindowWidth());
@@ -56,7 +59,6 @@ public class OneView extends FloatWindowView {
             setFloatWindowY(xy[1]);
         }
 
-        windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         LayoutInflater.from(context).inflate(R.layout.view_one, this);
         ontStartBtn = (Button) findViewById(R.id.ontStartBtn);
         ontStartBtn.setOnTouchListener(new OnTouchListener() {
@@ -95,8 +97,12 @@ public class OneView extends FloatWindowView {
                 //如果手指离开屏幕时，xDownInScreen和xInScreen相等，且yDownInScreen == yInScreen则视为触发
                 if (Math.abs(xDownInScreen - xInScreen) < toleranceNumerical && Math.abs(yDownInScreen - yInScreen) < toleranceNumerical) {
                     Context context = getContext();
-//                    Toast.makeText(context, "展开按钮组"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
+                    FloatWindowManager.removeFloatView();
+                    FloatWindowManager.createFloatWindow(context,FullscreenView.class);
                     FloatWindowManager.createFloatWindow(context,TwoView.class);
+                    //mIntent = new Intent(getContext(),FullscreenActivity.class);
+                    //mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+                    //getContext().startActivity(mIntent);
                 }
                 break;
             default:
@@ -120,7 +126,6 @@ public class OneView extends FloatWindowView {
      */
     private void updateViewPosition(Integer x,Integer y) {
         //Toast.makeText(getContext(), "更新小悬浮窗在屏幕中的位置"+System.currentTimeMillis(), Toast.LENGTH_SHORT).show();
-        mParams = mParams==null? getmParams() : mParams;
         if (x == null && y == null) {
             mParams.x = (int) (xInScreen - xInView);
             mParams.y = (int) (yInScreen - yInView);
@@ -156,4 +161,5 @@ public class OneView extends FloatWindowView {
         return 0;
         //return statusBarHeight;
     }
+
 }

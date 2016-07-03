@@ -7,12 +7,12 @@ import android.widget.LinearLayout;
 public class FloatWindowView extends LinearLayout {
     protected WindowManager windowManager;//悬浮窗口
     protected WindowManager.LayoutParams mParams;//悬浮窗口参数
-    protected int floatWindowWidth;//悬浮窗口的宽度
-    protected int floatWindowHeight;//悬浮窗口的高度
-    protected int floatWindowX;//悬浮窗口的水平中心位置
-    protected int floatWindowY;//悬浮窗口的垂直中心位置
-    protected int screenWidth;//屏幕宽度
-    protected int screenHeight;//屏幕高度
+    protected Integer floatWindowWidth;//悬浮窗口的宽度
+    protected Integer floatWindowHeight;//悬浮窗口的高度
+    protected Integer floatWindowX;//悬浮窗口的水平中心位置
+    protected Integer floatWindowY;//悬浮窗口的垂直中心位置
+    protected Integer screenWidth;//屏幕宽度
+    protected Integer screenHeight;//屏幕高度
 
     public FloatWindowView(Context context) {
         super(context);
@@ -41,7 +41,7 @@ public class FloatWindowView extends LinearLayout {
         this.floatWindowWidth = floatWindowWidth;
     }
 
-    public int getFloatWindowHeight() {
+    public Integer getFloatWindowHeight() {
         return floatWindowHeight;
     }
 
@@ -57,15 +57,15 @@ public class FloatWindowView extends LinearLayout {
         this.mParams = mParams;
     }
 
-    public int getScreenWidth() {
+    public Integer getScreenWidth() {
         return screenWidth;
     }
 
-    public int getScreenHeight() {
+    public Integer getScreenHeight() {
         return screenHeight;
     }
 
-    public int getFloatWindowX() {
+    public Integer getFloatWindowX() {
         return floatWindowX;
     }
 
@@ -73,7 +73,7 @@ public class FloatWindowView extends LinearLayout {
         this.floatWindowX = floatWindowX;
     }
 
-    public int getFloatWindowY() {
+    public Integer getFloatWindowY() {
         return floatWindowY;
     }
 

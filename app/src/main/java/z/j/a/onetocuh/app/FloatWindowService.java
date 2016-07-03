@@ -16,14 +16,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import z.j.a.onetocuh.MyWindowManager;
-
 public class FloatWindowService extends Service {
     private static final String TAG = "PACKAGENAME";
-    //用于线程中创建或移除悬浮窗。
-    private Handler handler = new Handler();
-    //定时器，定时进行检测当前应该创建还是移除悬浮
-    private Timer timer;
     private Class cls;
 
     @Override
@@ -39,49 +33,20 @@ public class FloatWindowService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        /**
-         * 开启定时器，每隔500ms刷新一次
-         */
-        if (timer == null){
-            timer = new Timer();
-            timer.scheduleAtFixedRate(new RefreshTask(),0,500);
-        }
         try {
-            Bundle bundle = intent.getExtras();
-            if(bundle!=null){
-                cls = Class.forName(bundle.getString("cls"));
-            }
+            cls = (intent!=null && intent.getExtras()!=null) ? Class.forName(intent.getExtras().getString("cls")) : null;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        FloatWindowManager.createFloatWindow(getApplicationContext(),cls);
+        if(cls!=null){
+            FloatWindowManager.createFloatWindow(getApplicationContext(),cls);
+        }
         return super.onStartCommand(intent, flags, startId);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //Service 被终止的同时也停止定时器继续运行
-        timer.cancel();
-        timer = null;
-    }
-
-    class RefreshTask extends TimerTask {
-
-        @Override
-        public void run() {
-            //判断当前界面是桌面，且没有悬浮显示，则创建悬浮窗 if (isHome() && !MyWindowManager.isWindowShowing()){
-            if (!FloatWindowManager.isWindowShowing()){
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if(!FloatWindowManager.isWindowShowing()){
-                            FloatWindowManager.createFloatWindow(getApplicationContext(),cls);
-                        }
-                    }
-                });
-            }
-        }
     }
 
     /**

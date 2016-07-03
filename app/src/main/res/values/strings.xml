@@ -2,7 +2,8 @@
 <resources>
     <string name="app_name">OneTocuh</string>
     <string name="action_settings">设置</string>
-    <string name="hello_world">悬浮</string>
+    <string name="hello_world">开启悬浮按钮</string>
+    <string name="load_applist">加载应用列表</string>
     <string name="load_start_icon">启动悬浮按钮1号</string>
     <string name="start">主页</string>
     <string name="rt">返回</string>

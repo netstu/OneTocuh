@@ -3,14 +3,18 @@ package z.j.a.onetocuh.app;
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
+import android.view.View;
 import android.view.WindowManager;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FloatWindowManager {
     //View实例
     private static FloatWindowView activity;
+    public static List<View> activityList;
 
     //小悬浮View的参数
     private static WindowManager.LayoutParams floatWindowParams;
@@ -20,13 +24,7 @@ public class FloatWindowManager {
 
     public static void createFloatWindow(Context context,Class cls){
         //WindowManager基本用到:addView，removeView，updateViewLayout
-        WindowManager windowManager = getWindowManager(context);
-        if(activity!=null){
-            windowManager.removeView(activity);
-        }
-        //获取屏幕宽高 abstract Display  getDefaultDisplay()；  //获取默认显示的 Display 对象
-        int screenWidth = windowManager.getDefaultDisplay().getWidth();
-        int screenHeight = windowManager.getDefaultDisplay().getHeight();
+        mWindowManager = getWindowManager(context);
         try {
             Constructor[] con = cls.getConstructors();
             activity = (FloatWindowView)con[0].newInstance(context);
@@ -50,7 +48,9 @@ public class FloatWindowManager {
             floatWindowParams.x = activity.getFloatWindowX();//设置悬浮窗口位置
             floatWindowParams.y = activity.getFloatWindowY();
             activity.setmParams(floatWindowParams);
-            windowManager.addView(activity, floatWindowParams);//将需要加到悬浮窗口中的View加入到窗口中
+            activityList = activityList==null ? new ArrayList<View>() : activityList;
+            activityList.add(activity);
+            mWindowManager.addView(activity, floatWindowParams);//将需要加到悬浮窗口中的View加入到窗口中
         }
     }
 
@@ -75,6 +75,15 @@ public class FloatWindowManager {
             mWindowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         }
         return mWindowManager;
+    }
+
+    public static void removeFloatView(){
+        if(activityList!=null){
+            while (activityList.size()>0){
+                mWindowManager.removeView(activityList.get(0));
+                activityList.remove(activityList.get(0));
+            }
+        }
     }
 
 }

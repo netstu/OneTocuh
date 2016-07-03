@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/re_view_two"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    >
     <RelativeLayout
         android:id="@+id/client_btn"
         android:layout_width="@dimen/bigwidth"
         android:layout_height="@dimen/bigheight"
         android:layout_below="@+id/top_btn"
         android:layout_toRightOf="@+id/left_btn"
-        android:background="@drawable/bg_float"
+        android:background="@xml/shape"
         android:text="@string/start"
         android:textColor="#ffffff"
         android:textSize="@dimen/bigtextsize" />
