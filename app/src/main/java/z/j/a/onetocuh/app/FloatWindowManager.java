@@ -1,6 +1,7 @@
 package z.j.a.onetocuh.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.view.Gravity;
 import android.view.View;
@@ -11,7 +12,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
+import z.j.a.onetocuh.app.utils.Constants;
+
 public class FloatWindowManager {
+    private static Intent intent;
     //View实例
     private static FloatWindowView activity;
     public static List<View> activityList;
@@ -38,10 +42,17 @@ public class FloatWindowManager {
 
         //设置小悬浮窗口的位置以及相关参数
         if (activity != null) {
+            activity.setIntent(getIntent());
             floatWindowParams = new WindowManager.LayoutParams();//
             floatWindowParams.type = WindowManager.LayoutParams.TYPE_PHONE;//设置窗口的window type
-            floatWindowParams.format = PixelFormat.RGBA_8888;//设置图片格式，效果为背景透明
-            floatWindowParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;//下面的flags属性的效果形同“锁定”。 悬浮窗不可触摸，不接受任何事件,同时不影响后面的事件响应。
+            if(intent!=null && intent.getExtras()!=null && "NO".equals(intent.getExtras().getString(Constants.transparent))){
+                //floatWindowParams.dimAmount = 0.9f;
+                //如果明确指定窗口不需要透明
+            }else{
+                floatWindowParams.format = PixelFormat.RGBA_8888;//设置图片格式，效果为背景透明
+            }
+            //下面的flags属性的效果形同“锁定”。 悬浮窗不可触摸，不接受任何事件,同时不影响后面的事件响应。
+            floatWindowParams.flags = WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN | WindowManager.LayoutParams.FLAG_FULLSCREEN | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
             floatWindowParams.gravity = Gravity.LEFT | Gravity.TOP;//调整悬浮窗口位置在左边中间
             floatWindowParams.width = activity.getFloatWindowWidth();
             floatWindowParams.height = activity.getFloatWindowHeight();
@@ -51,6 +62,7 @@ public class FloatWindowManager {
             activityList = activityList==null ? new ArrayList<View>() : activityList;
             activityList.add(activity);
             mWindowManager.addView(activity, floatWindowParams);//将需要加到悬浮窗口中的View加入到窗口中
+            intent = null;
         }
     }
 
@@ -84,6 +96,14 @@ public class FloatWindowManager {
                 activityList.remove(activityList.get(0));
             }
         }
+    }
+
+    public static Intent getIntent() {
+        return intent;
+    }
+
+    public static void setIntent(Intent intent) {
+        FloatWindowManager.intent = intent;
     }
 
 }

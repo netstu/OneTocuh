@@ -6,7 +6,7 @@
     <string name="load_applist">加载应用列表</string>
     <string name="load_start_icon">启动悬浮按钮1号</string>
     <string name="start">主页</string>
-    <string name="rt">返回</string>
+    <string name="back">返回</string>
     <string name="sendsms">短信</string>
     <string name="callphone">电话</string>
     <string name="appone">应用</string>

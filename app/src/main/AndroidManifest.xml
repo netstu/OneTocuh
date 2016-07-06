@@ -27,10 +27,6 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity
-            android:name=".app.activity.FullscreenActivity"
-            android:theme="@style/Transparent"
-            ></activity>
     </application>
 
 </manifest>

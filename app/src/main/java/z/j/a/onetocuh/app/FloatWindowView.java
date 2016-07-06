@@ -1,6 +1,7 @@
 package z.j.a.onetocuh.app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
@@ -13,13 +14,14 @@ public class FloatWindowView extends LinearLayout {
     protected Integer floatWindowY;//悬浮窗口的垂直中心位置
     protected Integer screenWidth;//屏幕宽度
     protected Integer screenHeight;//屏幕高度
+    protected Intent intent;
 
     public FloatWindowView(Context context) {
         super(context);
         initView(context);
     }
 
-    private void initView(Context context){
+    private void initView(Context context) {
         windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         screenWidth = windowManager.getDefaultDisplay().getWidth();
         screenHeight = windowManager.getDefaultDisplay().getHeight();
@@ -79,5 +81,13 @@ public class FloatWindowView extends LinearLayout {
 
     public void setFloatWindowY(int floatWindowY) {
         this.floatWindowY = floatWindowY;
+    }
+
+    public Intent getIntent() {
+        return intent;
+    }
+
+    public void setIntent(Intent intent) {
+        this.intent = intent;
     }
 }

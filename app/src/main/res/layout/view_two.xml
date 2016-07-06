@@ -2,31 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/re_view_two"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    >
-    <RelativeLayout
+    android:layout_height="wrap_content">
+    <Button
         android:id="@+id/client_btn"
         android:layout_width="@dimen/bigwidth"
         android:layout_height="@dimen/bigheight"
         android:layout_below="@+id/top_btn"
         android:layout_toRightOf="@+id/left_btn"
         android:background="@xml/shape"
-        android:text="@string/start"
+        android:text="@string/back"
         android:textColor="#ffffff"
         android:textSize="@dimen/bigtextsize" />
 
-    <RelativeLayout
+    <Button
         android:id="@+id/left_btn"
         android:layout_width="@dimen/bigwidth"
         android:layout_height="@dimen/bigheight"
         android:layout_alignTop="@+id/client_btn"
         android:background="@xml/shape"
+        android:gravity="center"
         android:text="@string/leftIcon"
         android:textColor="#ffffff"
         android:textSize="@dimen/bigtextsize"
-        android:visibility="visible" />
+        android:visibility="visible" >
+    </Button>
 
-    <RelativeLayout
+    <Button
         android:id="@+id/top_btn"
         android:layout_width="@dimen/bigwidth"
         android:layout_height="@dimen/bigheight"
@@ -37,7 +38,7 @@
         android:textSize="@dimen/bigtextsize"
         android:visibility="visible" />
 
-    <RelativeLayout
+    <Button
         android:id="@+id/right_btn"
         android:layout_width="@dimen/bigwidth"
         android:layout_height="@dimen/bigheight"
@@ -49,7 +50,7 @@
         android:textSize="@dimen/bigtextsize"
         android:visibility="visible" />
 
-    <RelativeLayout
+    <Button
         android:id="@+id/bottom_btn"
         android:layout_width="@dimen/bigwidth"
         android:layout_height="@dimen/bigheight"

@@ -4,35 +4,36 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import z.j.a.onetocuh.app.FloatWindowManager;
 import z.j.a.onetocuh.app.FloatWindowService;
+import z.j.a.onetocuh.app.utils.AppInfo;
+import z.j.a.onetocuh.app.utils.AppSets;
+import z.j.a.onetocuh.app.utils.Constants;
+import z.j.a.onetocuh.app.utils.LocalUtil;
+import z.j.a.onetocuh.app.view.AppPackageView;
+import z.j.a.onetocuh.app.view.FullscreenView;
 import z.j.a.onetocuh.app.view.OneView;
+import z.j.a.onetocuh.app.view.TwoView;
 
 public class MainActivity extends Activity {
     private Button loadStartIcon;
-    private Button loadAppList;
-
-    private TableLayout sysTableLayout;
-    private TableLayout userTableLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppSets.getInstance(getBaseContext());
+        AppSets.setAppToFloatWindow("myList");
+        if(LocalUtil.getAppList()==null){
+            new InitAppThread().run();
+        }
         initUI();
     }
 
@@ -40,11 +41,23 @@ public class MainActivity extends Activity {
         loadStartIcon = (Button)findViewById(R.id.loadStartIcon);
         loadStartIcon.setOnClickListener(new loadStartIcon());
 
-        loadAppList = (Button)findViewById(R.id.loadAppList);
-        loadAppList.setOnClickListener(new loadAppList());
 
-        sysTableLayout = (TableLayout) findViewById(R.id.sys_app_list);
-        userTableLayout = (TableLayout) findViewById(R.id.user_app_list);
+        Button btn4 = (Button)findViewById(R.id.left_btn);
+        btn4.setText(Constants.btnLeft);
+        btn4.setOnClickListener(new btn4Listener());
+
+        btn4 = (Button)findViewById(R.id.right_btn);
+        btn4.setText(Constants.btnRight);
+        btn4.setOnClickListener(new btn4Listener());
+
+        btn4 = (Button)findViewById(R.id.top_btn);
+        btn4.setText(Constants.btnTop);
+        btn4.setOnClickListener(new btn4Listener());
+
+        btn4 = (Button)findViewById(R.id.bottom_btn);
+        btn4.setText(Constants.btnBottom);
+        btn4.setOnClickListener(new btn4Listener());
+
     }
 
     public class loadStartIcon implements View.OnClickListener {
@@ -55,80 +68,58 @@ public class MainActivity extends Activity {
         }
     }
 
-    public class loadAppList implements View.OnClickListener {
+    public class btn4Listener implements View.OnClickListener {
         @Override
-        public void onClick(View arg0) {
-            List<AppInfo> appList = getAppList();
-            addRow(appList);
+        public void onClick(View view) {
+            String btnName = String.valueOf(((Button) view).getText());
+            Intent intent = new Intent(MainActivity.this, FloatWindowManager.class);
+            intent.putExtra(Constants.btnName, btnName);
+            intent.putExtra(Constants.transparent, "NO");
+            //intent.putExtra(Constants.className, AppPackageView.class.getName());
+            //startService(intent);
+
+            FloatWindowManager.removeFloatView();
+            FloatWindowManager.createFloatWindow(getBaseContext(),FullscreenView.class);
+            FloatWindowManager.setIntent(intent);
+            FloatWindowManager.createFloatWindow(getBaseContext(),AppPackageView.class);
+
         }
     }
 
-    private void addRow(List<AppInfo> appList){
-        TableRow tableRow = null;
-        TextView textView = null;
-        for(AppInfo appInfo : appList){
-            tableRow = new TableRow(MainActivity.this);
-
-            ImageView imageView = new ImageView(this);
-            imageView.setImageDrawable(appInfo.appicon);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(150,150));
-
-
-            tableRow.addView(imageView,0);
-
-            textView = new TextView(MainActivity.this);
-            textView.setText(String.valueOf(appInfo.appname));
-            tableRow.addView(textView,1);
-
-            textView = new TextView(MainActivity.this);
-            textView.setText(String.valueOf(appInfo.packagename));
-            tableRow.addView(textView,2);
-
-            textView = new TextView(MainActivity.this);
-            textView.setText(String.valueOf(appInfo.versionCode));
-            tableRow.addView(textView,3);
-
-
-            if(appInfo.sysapp){
-                sysTableLayout.addView(tableRow);
-            }else{
-                userTableLayout.addView(tableRow);
-            }
+    class InitAppThread implements Runnable{
+        public void run(){
+            initAppList();
         }
     }
 
-    public List<AppInfo> getAppList(){
-        ArrayList<AppInfo> appList = new ArrayList<AppInfo>();
+    public List<AppInfo> initAppList(){
+        ArrayList<AppInfo> appList = LocalUtil.getAppList();
+        if(appList!=null){
+            return appList;
+        }
+        appList = new ArrayList<AppInfo>();
         List<PackageInfo> packages = getPackageManager().getInstalledPackages(0);
         for(int i=0;i<packages.size();i++) {
             PackageInfo packageInfo = packages.get(i);
             AppInfo tmpInfo = new AppInfo();
-            tmpInfo.appname = packageInfo.applicationInfo.loadLabel(getPackageManager()).toString();
-            tmpInfo.packagename = packageInfo.packageName;
-            tmpInfo.versionName = packageInfo.versionName;
-            tmpInfo.versionCode = packageInfo.versionCode;
-            tmpInfo.sysapp = (packageInfo.applicationInfo.flags&ApplicationInfo.FLAG_SYSTEM)!=0;
-            tmpInfo.appicon = packageInfo.applicationInfo.loadIcon(getPackageManager());
+            tmpInfo.setAppname(packageInfo.applicationInfo.loadLabel(getPackageManager()).toString());
+            tmpInfo.setPackagename(packageInfo.packageName);
+            tmpInfo.setVersionName(packageInfo.versionName);
+            tmpInfo.setVersionCode(packageInfo.versionCode);
+            tmpInfo.setSysapp((packageInfo.applicationInfo.flags&ApplicationInfo.FLAG_SYSTEM)!=0);
+            tmpInfo.setAppicon(packageInfo.applicationInfo.loadIcon(getPackageManager()));
             appList.add(tmpInfo);
+            LocalUtil.setAppMap(packageInfo.packageName,tmpInfo);
         }
+        LocalUtil.setAppList(appList);
         return appList;
-    }
-
-    public class AppInfo{
-        private Integer versionCode=0;
-        private String appname="";
-        private String packagename="";
-        private String versionName="";
-        private Drawable appicon=null;
-        private Boolean sysapp=false;
     }
 
     public void startMyService(String target){
         Intent intent = new Intent(MainActivity.this, FloatWindowService.class);
-        intent.putExtra("model",target);
-        intent.putExtra("cls", target);
+        intent.putExtra(Constants.className, target);
         startService(intent);
-        finish();
+        //finish();
     }
 
 }

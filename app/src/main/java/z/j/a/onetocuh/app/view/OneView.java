@@ -14,7 +14,7 @@ import java.util.Map;
 import z.j.a.onetocuh.R;
 import z.j.a.onetocuh.app.FloatWindowManager;
 import z.j.a.onetocuh.app.FloatWindowView;
-import z.j.a.onetocuh.app.LocalUtil;
+import z.j.a.onetocuh.app.utils.LocalUtil;
 
 public class OneView extends FloatWindowView {
     private Button ontStartBtn;

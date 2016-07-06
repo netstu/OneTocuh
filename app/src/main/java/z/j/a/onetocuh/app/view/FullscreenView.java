@@ -1,6 +1,8 @@
 package z.j.a.onetocuh.app.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -32,4 +34,21 @@ public class FullscreenView extends FloatWindowView {
             }
         });
     }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        switch (event.getKeyCode()) {
+            case KeyEvent.KEYCODE_BACK:
+                FloatWindowManager.removeFloatView();
+                FloatWindowManager.createFloatWindow(getContext(), OneView.class);
+                break;
+            case KeyEvent.KEYCODE_MENU:
+            default:
+                break;
+        }
+        FloatWindowManager.removeFloatView();
+        FloatWindowManager.createFloatWindow(getContext(), OneView.class);
+        return true;
+    }
+
 }

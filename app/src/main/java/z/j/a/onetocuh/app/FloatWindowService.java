@@ -16,13 +16,14 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import z.j.a.onetocuh.app.utils.Constants;
+
 public class FloatWindowService extends Service {
     private static final String TAG = "PACKAGENAME";
     private Class cls;
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return null;
     }
 
@@ -34,11 +35,13 @@ public class FloatWindowService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         try {
-            cls = (intent!=null && intent.getExtras()!=null) ? Class.forName(intent.getExtras().getString("cls")) : null;
+            cls = (intent!=null && intent.getExtras()!=null) ? Class.forName(intent.getExtras().getString(Constants.className)) : null;
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
         if(cls!=null){
+            FloatWindowManager.removeFloatView();
+            FloatWindowManager.setIntent(intent);
             FloatWindowManager.createFloatWindow(getApplicationContext(),cls);
         }
         return super.onStartCommand(intent, flags, startId);
